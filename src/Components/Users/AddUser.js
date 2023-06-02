@@ -9,6 +9,7 @@ import classes from './AddUser.module.css';
 const AddUser = (props) => {
 const nameInputRef = useRef();  //ref value is generated is always is a object which have current prop and current props holds actual value at ref is connected with
 const ageInputRef = useRef();
+const collegeInputRef = useRef();
 
   const [error, setError] = useState();
 
@@ -16,7 +17,8 @@ const ageInputRef = useRef();
     event.preventDefault();
     const entredName = nameInputRef.current.value;
     const entredUserAge = ageInputRef.current.value;
-    if (entredName.trim().length === 0 || entredUserAge.trim().length === 0) {
+    const enteredCollegeName = collegeInputRef.current.value;
+    if (entredName.trim().length === 0 || entredUserAge.trim().length === 0 || enteredCollegeName.trim().length === 0) {
       setError({
         title: 'Invalid input',
         message: 'Please enter a valid name and age (non-empty values).',
@@ -30,9 +32,10 @@ const ageInputRef = useRef();
       });
       return;
     }
-    props.onAddUser(entredName, entredUserAge);
+    props.onAddUser(entredName, entredUserAge, enteredCollegeName);
     nameInputRef.current.value = '';
     ageInputRef.current.value = '';
+    collegeInputRef.current.value = '';
   };
 
   const errorHandler = () => {
@@ -61,7 +64,15 @@ const ageInputRef = useRef();
             id="age"
             type="number"
             ref={ageInputRef}
+            />
+
+            <label htmlFor="collegename">College Name</label>
+          <input
+            id="collegename"
+            type="text"
+            ref={collegeInputRef}
           />
+          
           <Button type="submit">Add User</Button>
         </form>
       </Card>
