@@ -15,10 +15,16 @@ const collegeInputRef = useRef();
 
   const addUserHandler = (event) => {
     event.preventDefault();
+
+    //how to use useEffect- 
+    
+    // useEffect(() => {
+    //   nameInputRef.current.focus();
+    // }, []);  
     const entredName = nameInputRef.current.value;
     const entredUserAge = ageInputRef.current.value;
     const enteredCollegeName = collegeInputRef.current.value;
-    if (entredName.trim().length === 0 || entredUserAge.trim().length === 0 || enteredCollegeName.trim().length === 0) {
+    if (entredName.trim().length === 0 || entredUserAge.trim().length === 0) {
       setError({
         title: 'Invalid input',
         message: 'Please enter a valid name and age (non-empty values).',
@@ -32,6 +38,14 @@ const collegeInputRef = useRef();
       });
       return;
     }
+    if (enteredCollegeName.trim().length === 0){
+    setError({
+      title: 'Invalid input',
+      message: 'Form is not valid(non-empty values).'
+    })
+    return;
+  }
+
     props.onAddUser(entredName, entredUserAge, enteredCollegeName);
     nameInputRef.current.value = '';
     ageInputRef.current.value = '';
